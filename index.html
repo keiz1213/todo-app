@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <title>Todo</title>
+</head>
+<body>
+  <section id="app" class="todoapp">
+    <header class="header">
+      <h1>Todo</h1>
+      <div class="header-form">
+        <input class="newtodo"
+        type="text"
+        v-model="newToDo"
+        >
+        <button @click="addToDo">追加</button>
+      </div>
+    </header>
+    <section class="main" v-show="toDos.length">
+      <ul class="todo-list">
+        <li v-for="(toDo, n) in toDos"
+          class="todo"
+          :key="toDo.id"
+          :class="{editing: toDo == editedToDo}">
+          <div class="view">
+            <label>
+              <input type="checkbox" v-model="toDo.done">
+              <span :class="{done: toDo.done}">{{ toDo.content }}</span>
+            </label>
+            <button @click="removeToDo(n)">削除</button>
+            <button @click="editToDo(toDo)">編集</button>
+          </div>
+          <div class="edit">
+            <input type="text" v-model="toDo.content">
+            <button @click="doneEdit(toDo, n)">更新</button>
+            <button @click="cancelEdit(toDo)">キャンセル</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </section>
+  <script src="app.js"></script>
+</body>
+</html>
